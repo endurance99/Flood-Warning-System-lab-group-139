@@ -54,6 +54,22 @@ class MonitoringStation:
         if low >= high:
             return False
         return True
+    
+    def relative_water_level(self):
+        """Returns the latest water level as a fraction of the typical
+        range.
+
+        Returns:
+            The latest water level as a fraction of the typical range,
+            or None if the data is not available or inconsistent.
+        """
+        if not self.typical_range_consistent():
+            return None
+        if self.latest_level is None:
+            return None
+        low, high = self.typical_range
+        
+        return (self.latest_level - low) / (high - low)
 
 def inconsistent_typical_range_stations(stations):
     """Returns a list of stations with inconsistent typical range data.
