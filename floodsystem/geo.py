@@ -90,3 +90,40 @@ def stations_by_river(stations):
         river_dict[river].append(station)
 
     return river_dict
+
+def rivers_by_station_number(stations, N):
+    """Returns a list of the N rivers with the greatest number of stations.
+
+    Args:
+        stations: List of MonitoringStation objects
+        N: Number of rivers to return
+
+    Returns:
+        List of tuples (river_name, station_count) for the N rivers with the most stations
+    """
+
+    river_station_count = {}
+
+    for station in stations:
+        river = station.river
+        if river in river_station_count:
+            river_station_count[river] += 1
+        else:
+            river_station_count[river] = 1
+
+    sorted_rivers = sorted_by_key(list(river_station_count.items()), 1, reverse=True)
+
+    result = []
+    rank = 0
+    last_count = None
+
+    for river, count in sorted_rivers:
+        if rank < N or count == last_count:
+            result.append((river, count))
+            if count != last_count:
+                rank += 1
+                last_count = count
+        else:
+            break
+
+    return result
