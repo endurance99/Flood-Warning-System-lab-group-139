@@ -85,9 +85,10 @@ def stations_by_river(stations):
 
     for station in stations:
         river = station.river
+        name = station.name
         if river not in river_dict:
             river_dict[river] = []
-        river_dict[river].append(station)
+        river_dict[river].append(name)
 
     return river_dict
 
