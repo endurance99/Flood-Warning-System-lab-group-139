@@ -32,3 +32,44 @@ def stations_within_radius(stations, centre, r):
             stations_in_radius.append(station)
 
     return stations_in_radius
+
+
+def rivers_with_station(stations):
+    """Returns a set of rivers with at least one monitoring station.
+
+    Args:
+        stations: List of MonitoringStation objects
+
+    Returns:
+        Set of river names (strings)
+    """
+
+    rivers = set()
+
+    for station in stations:
+        rivers.add(station.river)
+
+    return rivers
+
+
+def stations_by_river(stations):
+    """Returns a dictionary mapping river names to lists of stations on
+    those rivers.
+
+    Args:
+        stations: List of MonitoringStation objects
+
+    Returns:
+        Dictionary mapping river names (strings) to lists of
+        MonitoringStation objects
+    """
+
+    river_dict = {}
+
+    for station in stations:
+        river = station.river
+        if river not in river_dict:
+            river_dict[river] = []
+        river_dict[river].append(station)
+
+    return river_dict
