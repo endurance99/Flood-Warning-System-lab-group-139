@@ -24,7 +24,7 @@ def stations_by_distance(stations, p):
 
     for station in stations:
         distance = haversine(station.coord, p)
-        stations_dist.append((station.name, distance))
+        stations_dist.append((station, distance))
 
     return sorted_by_key(stations_dist, 1)
 
