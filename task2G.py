@@ -7,7 +7,7 @@ update_water_levels(stations)
 
 # Assess flood risk by town based on stations with high relative water levels
 # We use a threshold of 1.0 (100% of typical range) as concerning
-concerning_stations = flood.stations_level_over_threshold(stations, 1.0)
+concerning_stations = flood.stations_level_over_threshold(stations, 0.5)
 
 # Group stations by town and assess risk
 town_risk = {}
