@@ -24,7 +24,7 @@ def test_stations_by_distance():
     distance_list = stations_by_distance(stations, station_cam.coord)
 
     # Assert that the closest station is 'Cam' itself
-    assert distance_list[1][0].name == 'Cam'
+    assert distance_list[0][0].name == 'Cam'
 
 def test_stations_by_river():
     """Test for stations_by_river function"""
