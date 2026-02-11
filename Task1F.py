@@ -9,7 +9,9 @@ def run():
 
     inconsistent_stations_sorted = sorted(inconsistent_stations, key=lambda x: x.name)
 
+    list_of_inconsistent_stations = []
     for statioon in inconsistent_stations_sorted:
-        print(statioon.name)
+        list_of_inconsistent_stations.append(statioon.name)
+    print(list_of_inconsistent_stations)
 
 run()

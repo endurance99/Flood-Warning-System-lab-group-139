@@ -3,9 +3,9 @@ from floodsystem import stationdata, geo
 # Build a list of all stations
 stations = stationdata.build_station_list()
 
-river_stations = sorted(geo.rivers_with_station(stations))
+river = sorted(geo.rivers_with_station(stations))
 
-print(f"{len(river_stations)} stations. First 10 - {list(river_stations)[:10]}")
+print(f"{len(river)} stations. First 10 - {list(river)[0:9]}")
 
 station_on_river = geo.stations_by_river(stations)
 

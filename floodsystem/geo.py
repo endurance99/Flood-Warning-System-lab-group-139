@@ -93,18 +93,18 @@ def stations_by_river(stations):
     return river_dict
 
 def rivers_by_station_number(stations, N):
-    """Returns a list of the N rivers with the greatest number of stations.
+    """Returns a list of the N rivers with the greatest number of stations, including ties at the Nth position.
 
     Args:
         stations: List of MonitoringStation objects
-        N: Number of rivers to return
+        N: Number of rivers to return (minimum)
 
     Returns:
-        List of tuples (river_name, station_count) for the N rivers with the most stations
+        List of tuples (river_name, station_count) for the N rivers with the most stations, including ties at Nth position
     """
+    from .utils import sorted_by_key
 
     river_station_count = {}
-
     for station in stations:
         river = station.river
         if river in river_station_count:
@@ -115,16 +115,14 @@ def rivers_by_station_number(stations, N):
     sorted_rivers = sorted_by_key(list(river_station_count.items()), 1, reverse=True)
 
     result = []
-    rank = 0
-    last_count = None
-
-    for river, count in sorted_rivers:
-        if rank < N or count == last_count:
+    count_at_n = None
+    for i, (river, count) in enumerate(sorted_rivers):
+        if i < N:
             result.append((river, count))
-            if count != last_count:
-                rank += 1
-                last_count = count
+            if i == N - 1:
+                count_at_n = count
+        elif count == count_at_n:
+            result.append((river, count))
         else:
             break
-
     return result
