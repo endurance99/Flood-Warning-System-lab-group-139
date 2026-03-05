@@ -37,25 +37,13 @@ def stations_highest_rel_level(stations, N):
     """
 
     stations_with_levels = []
-
     for station in stations:
         rel_level = station.relative_water_level()
-        if rel_level is not None:
+        # Exclude stations with None, inconsistent range, or unrealistic (e.g., >10) relative levels
+        if rel_level is not None and station.typical_range_consistent() and rel_level < 10:
             stations_with_levels.append((station, rel_level))
 
     sorted_stations = sorted_by_key(stations_with_levels, 1, reverse=True)
 
-    result = []
-    rank = 0
-    last_level = None
-
-    for station, level in sorted_stations:
-        if rank < N or level == last_level:
-            result.append(station)
-            if level != last_level:
-                rank += 1
-                last_level = level
-        else:
-            break
-
-    return result
+    # Return exactly N stations with the highest valid relative water levels
+    return [station for station, _ in sorted_stations[:N]]
