@@ -1,45 +1,37 @@
-# from floodsystem.analysis import *
-# from floodsystem.plot import plot_water_levels
-# from floodsystem.stationdata import build_station_list
+import datetime
+import matplotlib
+matplotlib.use('Agg')  # Use non-interactive backend for testing
+import matplotlib.pyplot as plt
+from floodsystem.analysis import polyfit
+from floodsystem.plot import plot_water_levels, plot_water_level_with_fit
+from floodsystem.station import MonitoringStation
 
-# def test_plot_water_levels():
-#     """Test for plot_water_levels function"""
+def test_plot_water_levels():
+    """Test for plot_water_levels function"""
+    
+    # Create a custom station
+    station = MonitoringStation("test-id", "test-measure-id", "Test Station", 
+                               (0.0, 0.0), (0.0, 1.0), "Test River", "Test Town")
+    
+    # Create sample dates and levels
+    dates = [datetime.datetime(2024, 1, i) for i in range(1, 11)]
+    levels = [0.1 * i for i in range(1, 11)]
+    
+    # Plot water levels (just test that it doesn't raise an error)
+    plot_water_levels(station, dates, levels)
+    plt.close()
 
-#     # Build list of stations
-#     stations = build_station_list()
-
-#     # Find station 'Cam'
-#     for station in stations:
-#         if station.name == 'Cam':
-#             station_cam = station
-#             break
-
-#     # Assert that station is found
-#     assert station_cam
-
-#     # Get water level data for the past 10 days
-#     dates, levels = fetch_measure_levels(station_cam.measure_id, dt=datetime.timedelta(days=10))
-
-#     # Plot water levels
-#     plot_water_levels(station_cam, dates, levels)
-
-# def test_plot_water_levels_with_fit():
-#     """Test for plot_water_levels_with_fit function"""
-
-#     # Build list of stations
-#     stations = build_station_list()
-
-#     # Find station 'Cam'
-#     for station in stations:
-#         if station.name == 'Cam':
-#             station_cam = station
-#             break
-
-#     # Assert that station is found
-#     assert station_cam
-
-#     # Get water level data for the past 10 days
-#     dates, levels = fetch_measure_levels(station_cam.measure_id, dt=datetime.timedelta(days=10))
-
-#     # Plot water levels with a 4th degree polynomial fit
-#     plot_water_levels_with_fit(station_cam, dates, levels, p=4)
+def test_plot_water_levels_with_fit():
+    """Test for plot_water_levels_with_fit function"""
+    
+    # Create a custom station
+    station = MonitoringStation("test-id", "test-measure-id", "Test Station", 
+                               (0.0, 0.0), (0.0, 1.0), "Test River", "Test Town")
+    
+    # Create sample dates and levels
+    dates = [datetime.datetime(2024, 1, i) for i in range(1, 11)]
+    levels = [0.1 * i for i in range(1, 11)]
+    
+    # Plot water levels with a 4th degree polynomial fit (just test that it doesn't raise an error)
+    plot_water_level_with_fit(station, dates, levels, p=4)
+    plt.close()
